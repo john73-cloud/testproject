@@ -16,7 +16,7 @@ This project is a full-stack TypeScript application with a frontend and backend 
 ## Installation
 1. Clone the repository:
    ```sh
-   git clone <repository-url>
+   git clone [<repository-url>](https://github.com/john73-cloud/testproject.git)
    cd testproject
    ```
 2. Install dependencies:
