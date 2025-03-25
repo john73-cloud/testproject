@@ -3,12 +3,15 @@ import cors from "cors"
 const app: Application = express();
 const PORT = 3000;
 app.use(cors())
+// store existing quotes
 const prices: Record<string, number> = {};
+// get initial price
 const getRandomPrice = (): number => {
     return parseFloat((Math.random() * (1500 - 50) + 50).toFixed(2));
 };
-
+// function to update prices
 const simulatePriceUpdate = (symbol: string) => {
+    // update price every 200ms
     setInterval(() => {
         if (prices[symbol] !== undefined) {
             const fluctuation = (Math.random() * 0.05 - 0.025) * prices[symbol];
@@ -17,7 +20,7 @@ const simulatePriceUpdate = (symbol: string) => {
     }, 200);
 };
 
-app.get('/api/quote/:symbol', (req: Request<{ symbol: string; }>, res: Record<string, any>) => {
+app.get('/api/quote/:symbol?', (req: Request<{ symbol: string; }>, res: Record<string, any>) => {
     const { symbol } = req.params;
 
     if (!symbol || typeof symbol !== 'string') {
@@ -35,6 +38,8 @@ app.get('/api/quote/:symbol', (req: Request<{ symbol: string; }>, res: Record<st
     });
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+// for tests
+export { app, server };
